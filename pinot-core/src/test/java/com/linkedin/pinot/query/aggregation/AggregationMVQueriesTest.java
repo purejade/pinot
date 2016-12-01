@@ -131,7 +131,7 @@ public class AggregationMVQueriesTest {
 
     System.out.println("testSumAggrMV");
     System.out.println(aggregationResult.getValue());
-    Assert.assertEquals(aggregationResult.getValue(), "2144864368413420.00000");
+    Assert.assertEquals(aggregationResult.getValue(), "2144864368413420.0");
 
   }
 
@@ -149,7 +149,7 @@ public class AggregationMVQueriesTest {
 
     System.out.println("testAvgAggrMV");
     System.out.println(aggregationResult.getValue());
-    Assert.assertEquals(aggregationResult.getValue(), "799785356.25827");
+    Assert.assertEquals(aggregationResult.getValue(), "799785356.2582668");
   }
 
   @Test
@@ -166,7 +166,7 @@ public class AggregationMVQueriesTest {
 
     System.out.println("testMinAggrMV");
     System.out.println(aggregationResult.getValue());
-    Assert.assertEquals(aggregationResult.getValue(), "201.00000");
+    Assert.assertEquals(aggregationResult.getValue(), "201.0");
 
   }
 
@@ -184,7 +184,7 @@ public class AggregationMVQueriesTest {
 
     System.out.println("testMaxAggrMV");
     System.out.println(aggregationResult.getValue());
-    Assert.assertEquals(aggregationResult.getValue(), "2147483647.00000");
+    Assert.assertEquals(aggregationResult.getValue(), "2147483647.0");
 
   }
 
@@ -202,7 +202,7 @@ public class AggregationMVQueriesTest {
 
     System.out.println("testMinMaxRangeAggrMV");
     System.out.println(aggregationResult.getValue());
-    Assert.assertEquals(aggregationResult.getValue(), "2147483446.00000");
+    Assert.assertEquals(aggregationResult.getValue(), "2147483446.0");
 
   }
 
@@ -254,7 +254,7 @@ public class AggregationMVQueriesTest {
 
     System.out.println("testPercentile50AggrMV");
     System.out.println(aggregationResult.getValue());
-    Assert.assertEquals(aggregationResult.getValue(), "492.00000");
+    Assert.assertEquals(aggregationResult.getValue(), "492.0");
   }
 
   @Test
@@ -271,7 +271,7 @@ public class AggregationMVQueriesTest {
 
     System.out.println("testPercentile90AggrMV");
     System.out.println(aggregationResult.getValue());
-    Assert.assertEquals(aggregationResult.getValue(), "2147483647.00000");
+    Assert.assertEquals(aggregationResult.getValue(), "2147483647.0");
   }
 
   @Test
@@ -288,7 +288,7 @@ public class AggregationMVQueriesTest {
 
     System.out.println("testPercentile95AggrMV");
     System.out.println(aggregationResult.getValue());
-    Assert.assertEquals(aggregationResult.getValue(), "2147483647.00000");
+    Assert.assertEquals(aggregationResult.getValue(), "2147483647.0");
   }
 
   @Test
@@ -305,7 +305,7 @@ public class AggregationMVQueriesTest {
 
     System.out.println("testPercentile99AggrMV");
     System.out.println(aggregationResult.getValue());
-    Assert.assertEquals(aggregationResult.getValue(), "2147483647.00000");
+    Assert.assertEquals(aggregationResult.getValue(), "2147483647.0");
   }
 
   @Test

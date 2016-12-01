@@ -42,6 +42,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import javax.annotation.Nonnull;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.slf4j.Logger;
@@ -111,7 +112,7 @@ public class ServerQueryExecutorV1Impl implements QueryExecutor {
       nPrunedSegments = queryableSegmentDataManagerList.size();
       LOGGER.debug("Matched {} segments! ", nPrunedSegments);
       if (queryableSegmentDataManagerList.isEmpty()) {
-        return null;
+        return new DataTable();
       }
 
       TimerContext.Timer planBuildTimer = timerContext.startNewPhaseTimer(ServerQueryPhase.BUILD_QUERY_PLAN);
@@ -137,9 +138,11 @@ public class ServerQueryExecutorV1Impl implements QueryExecutor {
       LOGGER.debug("Searching Instance for Request Id - {}, browse took: {}", instanceRequest.getRequestId(),
           queryProcessingTimer.getDurationNs());
       LOGGER.debug("InstanceResponse for Request Id - {} : {}", instanceRequest.getRequestId(), dataTable.toString());
-      dataTable.getMetadata().put("timeUsedMs", Long.toString(queryProcessingTimer.getDurationMs()));
-      dataTable.getMetadata().put("requestId", Long.toString(instanceRequest.getRequestId()));
-      dataTable.getMetadata().put("traceInfo", TraceContext.getTraceInfoOfRequestId(instanceRequest.getRequestId()));
+      dataTable.getMetadata()
+          .put(DataTable.TIME_USED_MS_METADATA_KEY, Long.toString(queryProcessingTimer.getDurationMs()));
+      dataTable.getMetadata().put(DataTable.REQUEST_ID_METADATA_KEY, Long.toString(instanceRequest.getRequestId()));
+      dataTable.getMetadata()
+          .put(DataTable.TRACE_INFO_METADATA_KEY, TraceContext.getTraceInfoOfRequestId(instanceRequest.getRequestId()));
       LOGGER.info("Processed requestId {},reqSegments={},prunedToSegmentCount={},planTime={},planExecTime={},totalTimeUsed={},broker={}",
           requestId, nSegmentsInQuery, nPrunedSegments,
           planBuildTimer.getDurationMs(),
@@ -157,9 +160,11 @@ public class ServerQueryExecutorV1Impl implements QueryExecutor {
 
       LOGGER.info("Searching Instance for Request Id - {}, browse took: {}, instanceResponse: {}", requestId,
           queryProcessingTimer.getDurationMs(), dataTable.toString());
-      dataTable.getMetadata().put("timeUsedMs", Long.toString(queryProcessingTimer.getDurationNs()));
-      dataTable.getMetadata().put("requestId", Long.toString(instanceRequest.getRequestId()));
-      dataTable.getMetadata().put("traceInfo", TraceContext.getTraceInfoOfRequestId(instanceRequest.getRequestId()));
+      dataTable.getMetadata()
+          .put(DataTable.TIME_USED_MS_METADATA_KEY, Long.toString(queryProcessingTimer.getDurationNs()));
+      dataTable.getMetadata().put(DataTable.REQUEST_ID_METADATA_KEY, Long.toString(instanceRequest.getRequestId()));
+      dataTable.getMetadata()
+          .put(DataTable.TRACE_INFO_METADATA_KEY, TraceContext.getTraceInfoOfRequestId(instanceRequest.getRequestId()));
       return dataTable;
     } finally {
       if (_instanceDataManager.getTableDataManager(instanceRequest.getQuery().getQuerySource().getTableName()) != null) {

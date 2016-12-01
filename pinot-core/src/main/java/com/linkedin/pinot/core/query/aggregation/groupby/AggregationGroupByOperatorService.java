@@ -27,6 +27,8 @@ import com.linkedin.pinot.common.utils.DataTable;
 import com.linkedin.pinot.core.query.aggregation.AggregationFunction;
 import com.linkedin.pinot.core.query.aggregation.AggregationFunctionFactory;
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -34,6 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import javax.annotation.Nonnull;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,6 +53,9 @@ import org.slf4j.LoggerFactory;
 public class AggregationGroupByOperatorService {
   private static final Logger LOGGER = LoggerFactory.getLogger(AggregationGroupByOperatorService.class);
   private static final String MIN_PREFIX = "min_";
+  private static final DecimalFormat DOUBLE_FORMATTER =
+      new DecimalFormat("###################0.0#########", DecimalFormatSymbols.getInstance(Locale.US));
+
   private final List<String> _groupByColumns;
   private final int _groupByTopN;
   private final int _trimThreshold;
@@ -243,9 +249,19 @@ public class AggregationGroupByOperatorService {
     return aggregationResults;
   }
 
-  private Serializable formatValue(Serializable value) {
-    return (value instanceof Float || value instanceof Double) ? String.format(Locale.US, "%1.5f", value)
-        : value.toString();
+  /**
+   * Format the {@link Serializable} value into {@link String}.
+   * <p>For {@link Double} value, format it into the form ###################0.0#########.
+   *
+   * @param value value to be formatted.
+   * @return formatted value.
+   */
+  public static String formatValue(@Nonnull Serializable value) {
+    if (value instanceof Double) {
+      return DOUBLE_FORMATTER.format((double) value);
+    } else {
+      return value.toString();
+    }
   }
 
   /**

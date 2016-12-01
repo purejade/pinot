@@ -136,16 +136,16 @@ public class AggregationMVGroupByMVQueriesTest {
     System.out.println(aggregationResult.getGroupByResult());
 
     Map<String, String> expectedGroupByResults = new HashMap<>();
-    expectedGroupByResults.put("[2147483647]", "1967352841480140.00000");
-    expectedGroupByResults.put("[1417167]", "1460288879960.00000");
-    expectedGroupByResults.put("[1044]", "1202591795900.00000");
-    expectedGroupByResults.put("[1033]", "1159642469380.00000");
-    expectedGroupByResults.put("[36614]", "1073742033720.00000");
-    expectedGroupByResults.put("[200683]", "1073741823500.00000");
-    expectedGroupByResults.put("[62009]", "1030792150560.00000");
-    expectedGroupByResults.put("[1038]", "944893521040.00000");
-    expectedGroupByResults.put("[113103]", "944892804680.00000");
-    expectedGroupByResults.put("[1028]", "773096958740.00000");
+    expectedGroupByResults.put("[2147483647]", "1967352841480140.0");
+    expectedGroupByResults.put("[1417167]", "1460288879960.0");
+    expectedGroupByResults.put("[1044]", "1202591795900.0");
+    expectedGroupByResults.put("[1033]", "1159642469380.0");
+    expectedGroupByResults.put("[36614]", "1073742033720.0");
+    expectedGroupByResults.put("[200683]", "1073741823500.0");
+    expectedGroupByResults.put("[62009]", "1030792150560.0");
+    expectedGroupByResults.put("[1038]", "944893521040.0");
+    expectedGroupByResults.put("[113103]", "944892804680.0");
+    expectedGroupByResults.put("[1028]", "773096958740.0");
 
     Map<String, String> actualGroupByResults = convertGroupByResultsToMap(aggregationResult.getGroupByResult());
     assertGroupByReulsts(actualGroupByResults, expectedGroupByResults);
@@ -168,16 +168,16 @@ public class AggregationMVGroupByMVQueriesTest {
     System.out.println(aggregationResult.getGroupByResult());
 
     Map<String, String> expectedGroupByResults = new HashMap<>();
-    expectedGroupByResults.put("[2147483647]", "2144863716950660.00000");
-    expectedGroupByResults.put("[363]", "115825340.00000");
-    expectedGroupByResults.put("[469]", "111044220.00000");
-    expectedGroupByResults.put("[564]", "84726960.00000");
-    expectedGroupByResults.put("[246]", "84011760.00000");
-    expectedGroupByResults.put("[523]", "60105640.00000");
-    expectedGroupByResults.put("[211]", "53276920.00000");
-    expectedGroupByResults.put("[288]", "52121900.00000");
-    expectedGroupByResults.put("[225]", "36344500.00000");
-    expectedGroupByResults.put("[478]", "31704560.00000");
+    expectedGroupByResults.put("[2147483647]", "2144863716950660.0");
+    expectedGroupByResults.put("[363]", "115825340.0");
+    expectedGroupByResults.put("[469]", "111044220.0");
+    expectedGroupByResults.put("[564]", "84726960.0");
+    expectedGroupByResults.put("[246]", "84011760.0");
+    expectedGroupByResults.put("[523]", "60105640.0");
+    expectedGroupByResults.put("[211]", "53276920.0");
+    expectedGroupByResults.put("[288]", "52121900.0");
+    expectedGroupByResults.put("[225]", "36344500.0");
+    expectedGroupByResults.put("[478]", "31704560.0");
 
     Map<String, String> actualGroupByResults = convertGroupByResultsToMap(aggregationResult.getGroupByResult());
     assertGroupByReulsts(actualGroupByResults, expectedGroupByResults);
@@ -218,16 +218,16 @@ public class AggregationMVGroupByMVQueriesTest {
     System.out.println(aggregationResult.getGroupByResult());
 
     Map<String, String> expectedGroupByResults = new HashMap<>();
-    expectedGroupByResults.put("[2147483647]", "2147483647.00000");
-    expectedGroupByResults.put("[536]", "536.00000");
-    expectedGroupByResults.put("[566]", "522.00000");
-    expectedGroupByResults.put("[532]", "519.75000");
-    expectedGroupByResults.put("[552]", "504.96429");
-    expectedGroupByResults.put("[529]", "499.44444");
-    expectedGroupByResults.put("[555]", "495.66667");
-    expectedGroupByResults.put("[570]", "495.00000");
-    expectedGroupByResults.put("[554]", "493.92857");
-    expectedGroupByResults.put("[545]", "493.03659");
+    expectedGroupByResults.put("[2147483647]", "2147483647.0");
+    expectedGroupByResults.put("[536]", "536.0");
+    expectedGroupByResults.put("[566]", "522.0");
+    expectedGroupByResults.put("[532]", "519.75");
+    expectedGroupByResults.put("[552]", "504.9642857143");
+    expectedGroupByResults.put("[529]", "499.4444444444");
+    expectedGroupByResults.put("[555]", "495.6666666667");
+    expectedGroupByResults.put("[570]", "495.0");
+    expectedGroupByResults.put("[554]", "493.9285714286");
+    expectedGroupByResults.put("[545]", "493.0365853659");
 
     Map<String, String> actualGroupByResults = convertGroupByResultsToMap(aggregationResult.getGroupByResult());
     assertGroupByReulsts(actualGroupByResults, expectedGroupByResults);
@@ -304,7 +304,7 @@ public class AggregationMVGroupByMVQueriesTest {
     System.out.println(aggregationResult.getGroupByResult());
 
     Map<String, String> expectedGroupByResults = new HashMap<>();
-    expectedGroupByResults.put("[2147483647]", "2147483647.00000");
+    expectedGroupByResults.put("[2147483647]", "2147483647.0");
 
     Map<String, String> actualGroupByResults = convertGroupByResultsToMap(aggregationResult.getGroupByResult());
     assertGroupByReulsts(actualGroupByResults, expectedGroupByResults);
@@ -376,9 +376,7 @@ public class AggregationMVGroupByMVQueriesTest {
   private void assertGroupByReulsts(Map<String, String> actualGroupByResults, Map<String, String> expectedGroupByResults) {
     for (String groupKey : expectedGroupByResults.keySet()) {
       Assert.assertTrue(actualGroupByResults.containsKey(groupKey));
-      Assert.assertEquals(
-          actualGroupByResults.get(groupKey),
-          expectedGroupByResults.get(groupKey));
+      Assert.assertEquals(actualGroupByResults.get(groupKey), expectedGroupByResults.get(groupKey));
     }
   }
 
