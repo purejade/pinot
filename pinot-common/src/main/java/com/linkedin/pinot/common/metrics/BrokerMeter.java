@@ -32,6 +32,8 @@ public enum BrokerMeter implements AbstractMetrics.Meter {
   REQUEST_FETCH_EXCEPTIONS("exceptions", false),
   REQUEST_DESERIALIZATION_EXCEPTIONS("exceptions", false),
   DOCUMENTS_SCANNED("documents", false),
+  ENTRIES_SCANNED_IN_FILTER("documents", false),
+  ENTRIES_SCANNED_POST_FILTER("documents", false),
   REQUEST_CONNECTION_TIMEOUTS("timeouts", false),
   REQUEST_CONNECTION_WAIT_TIME_IN_MILLIS("waits", false),
   HELIX_ZOOKEEPER_RECONNECTS("reconnects", true),
@@ -56,7 +58,11 @@ public enum BrokerMeter implements AbstractMetrics.Meter {
   DATA_TABLE_OBJECT_DESERIALIZATION("dataTableObjectDeserialization", true),
 
   ROUTING_TABLE_REBUILD_FAILURES("failures", false),
-  ;
+
+  // These two metrics track the number of partial results.
+  // Two factors could cause partial result: caught processing exception / partial servers responded.
+  PROCESSING_EXCEPTION_CAUGHT("partialResult", false),
+  PARTIAL_SERVERS_RESPONDED("partialResult", false);
 
   private final String brokerMeterName;
   private final String unit;

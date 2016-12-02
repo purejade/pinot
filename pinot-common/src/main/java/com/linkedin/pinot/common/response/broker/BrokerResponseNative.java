@@ -39,7 +39,7 @@ import org.json.JSONObject;
  *
  * Supports serialization via JSON.
  */
-@JsonPropertyOrder({"selectionResults", "aggregationResults", "exceptions", "numDocsScanned", "numEntriesScannedInFilter", "numEntriesScannedPostFilter", "totalDocs", "timeUsedMs", "segmentStatistics", "traceInfo"})
+@JsonPropertyOrder({"selectionResults", "aggregationResults", "exceptions", "numServersQueried", "numServersResponded", "numDocsScanned", "numEntriesScannedInFilter", "numEntriesScannedPostFilter", "totalDocs", "timeUsedMs", "segmentStatistics", "traceInfo"})
 public class BrokerResponseNative implements BrokerResponse {
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -47,6 +47,8 @@ public class BrokerResponseNative implements BrokerResponse {
   public static final BrokerResponseNative NO_TABLE_RESULT =
       new BrokerResponseNative(QueryException.BROKER_RESOURCE_MISSING_ERROR);
 
+  private int _numServersQueried = 0;
+  private int _numServersResponded = 0;
   private long _numDocsScanned = 0L;
   private long _numEntriesScannedInFilter = 0L;
   private long _numEntriesScannedPostFilter = 0L;
@@ -78,6 +80,60 @@ public class BrokerResponseNative implements BrokerResponse {
    */
   public static BrokerResponseNative empty() {
     return new BrokerResponseNative();
+  }
+
+  @JsonProperty("selectionResults")
+  @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+  public SelectionResults getSelectionResults() {
+    return _selectionResults;
+  }
+
+  @JsonProperty("selectionResults")
+  public void setSelectionResults(SelectionResults selectionResults) {
+    _selectionResults = selectionResults;
+  }
+
+  @JsonProperty("aggregationResults")
+  @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+  public List<AggregationResult> getAggregationResults() {
+    return _aggregationResults;
+  }
+
+  @JsonProperty("aggregationResults")
+  public void setAggregationResults(List<AggregationResult> aggregationResults) {
+    _aggregationResults = aggregationResults;
+  }
+
+  @JsonProperty("exceptions")
+  public List<QueryProcessingException> getProcessingExceptions() {
+    return _processingExceptions;
+  }
+
+  @JsonProperty("exceptions")
+  public void setProcessingExceptions(List<QueryProcessingException> processingExceptions) {
+    _processingExceptions = processingExceptions;
+  }
+
+  @JsonProperty("numServersQueried")
+  public int getNumServersQueried() {
+    return _numServersQueried;
+  }
+
+  @JsonProperty("numServersQueried")
+  @Override
+  public void setNumServersQueried(int numServersQueried) {
+    _numServersQueried = numServersQueried;
+  }
+
+  @JsonProperty("numServersResponded")
+  public int getNumServersResponded() {
+    return _numServersResponded;
+  }
+
+  @JsonProperty("numServersResponded")
+  @Override
+  public void setNumServersResponded(int numServersResponded) {
+    _numServersResponded = numServersResponded;
   }
 
   @JsonProperty("numDocsScanned")
@@ -134,27 +190,14 @@ public class BrokerResponseNative implements BrokerResponse {
     _timeUsedMs = timeUsedMs;
   }
 
-  @JsonProperty("selectionResults")
-  public void setSelectionResults(SelectionResults selectionResults) {
-    _selectionResults = selectionResults;
+  @JsonProperty("segmentStatistics")
+  public List<String> getSegmentStatistics() {
+    return _segmentStatistics;
   }
 
-  @JsonProperty("aggregationResults")
-  @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-  public void setAggregationResults(List<AggregationResult> aggregationResults) {
-    _aggregationResults = aggregationResults;
-  }
-
-  @JsonProperty("selectionResults")
-  @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-  public SelectionResults getSelectionResults() {
-    return _selectionResults;
-  }
-
-  @JsonProperty("aggregationResults")
-  @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-  public List<AggregationResult> getAggregationResults() {
-    return _aggregationResults;
+  @JsonProperty("segmentStatistics")
+  public void setSegmentStatistics(List<String> segmentStatistics) {
+    _segmentStatistics = segmentStatistics;
   }
 
   @JsonProperty("traceInfo")
@@ -165,26 +208,6 @@ public class BrokerResponseNative implements BrokerResponse {
   @JsonProperty("traceInfo")
   public void setTraceInfo(Map<String, String> traceInfo) {
     _traceInfo = traceInfo;
-  }
-
-  @JsonProperty("exceptions")
-  public List<QueryProcessingException> getProcessingExceptions() {
-    return _processingExceptions;
-  }
-
-  @JsonProperty("exceptions")
-  public void setProcessingExceptions(List<QueryProcessingException> processingExceptions) {
-    _processingExceptions = processingExceptions;
-  }
-
-  @JsonProperty("segmentStatistics")
-  public List<String> getSegmentStatistics() {
-    return _segmentStatistics;
-  }
-
-  @JsonProperty("segmentStatistics")
-  public void setSegmentStatistics(List<String> segmentStatistics) {
-    _segmentStatistics = segmentStatistics;
   }
 
   @Override
